@@ -17,8 +17,10 @@ import {
 const link = new HttpLink({
     uri: GITHUB_DATA.GITHUB_BASE_URL,
     headers: {
-        authorisation: `Bearer ${GITHUB_DATA.token}`,
-
+        authorization: `Bearer ${GITHUB_DATA.token}`,
+    },
+    fetchOptions: {
+        mode: 'no-cors',
     }
 })
 
