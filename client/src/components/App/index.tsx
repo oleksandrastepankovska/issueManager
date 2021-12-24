@@ -1,11 +1,7 @@
 import React from "react";
-
-import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
-
 import Home from "../../pages/Home";
 import Header from '../Header';
 import About from "../../pages/About";
-import { GITHUB_DATA } from '../../GIT';
 
 import {
     BrowserRouter as Router,
@@ -13,25 +9,8 @@ import {
     Route,
 } from "react-router-dom";
 
-
-const link = new HttpLink({
-    uri: GITHUB_DATA.GITHUB_BASE_URL,
-    headers: {
-        authorization: `Bearer ${GITHUB_DATA.token}`,
-    },
-    fetchOptions: {
-        mode: 'no-cors',
-    }
-})
-
-const client = new ApolloClient({
-  link,
-  cache: new InMemoryCache(),
-});
-
 const App: React.FC = () => {
     return(
-        <ApolloProvider client={client}>
             <Router>
                 <Header />
                 <Routes>
@@ -39,7 +18,6 @@ const App: React.FC = () => {
                     <Route path="/about" element={<About />} />
                 </Routes>
             </Router>
-        </ApolloProvider>
     )
 };
 

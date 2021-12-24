@@ -11,10 +11,9 @@ const Home: React.FC = () => {
         }
     `;
     
-    const { data } = useQuery(USER_DATA);
-
+    const data = useQuery(USER_DATA);
     return(
-        <HomeWrapper>{data}</HomeWrapper>
+        <HomeWrapper>{data.loading ? <div>Loading...</div> : data.data.viewer.login}</HomeWrapper>
     )
 };
 
