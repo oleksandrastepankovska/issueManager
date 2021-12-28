@@ -3,7 +3,7 @@ import { HomeWrapper } from "./styles";
 
 const Home: React.FC = () => {
     return(
-        <HomeWrapper>Home</HomeWrapper>
+        <HomeWrapper>HOME</HomeWrapper>
     )
 };
 
