@@ -2,7 +2,7 @@ import React from "react";
 import { HomeWrapper } from "./styles";
 import Issues from "../../components/Issues";
 
-const Home: React.FC = () => {
+const Home: any = () => {
     return(
         <HomeWrapper>
             <Issues></Issues>

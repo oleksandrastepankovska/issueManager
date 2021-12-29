@@ -7,11 +7,9 @@ const GET_ISSUES = gql`
             edges{
                 node{
                 id
-                number
                 state
                 title
                 url
-                bodyHTML
                 }
             }
             }
