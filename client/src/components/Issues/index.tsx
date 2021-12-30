@@ -2,6 +2,7 @@ import React from "react";
 import { useGetIssues } from "../hooks/useGetIssues";
 import IssueItem from './IssueItem'
 import { IssuesWrapper } from './styles'
+import Loading from '../common/Loader'
 
 interface IRenderedItem {
     node: {
@@ -15,7 +16,7 @@ interface IRenderedItem {
 const Issues = () => {
     const info = useGetIssues({owner: "oleksandrastepankovska", name: "issueManager"})
     if(info === undefined){
-        return(<div>Loading...</div>)
+        return(<Loading/>)
     } else {
         return(
             <IssuesWrapper>
