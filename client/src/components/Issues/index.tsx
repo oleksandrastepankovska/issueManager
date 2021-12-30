@@ -13,7 +13,7 @@ interface IRenderedItem {
 }
 
 const Issues = () => {
-    const info = useGetIssues()
+    const info = useGetIssues({owner: "oleksandrastepankovska", name: "issueManager"})
     if(info === undefined){
         return(<div>Loading...</div>)
     } else {
