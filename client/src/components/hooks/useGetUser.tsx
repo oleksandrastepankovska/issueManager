@@ -11,8 +11,8 @@ const GET_USER = gql`
 `
 
 export const useGetUser = ():User | undefined  => {
-    const data =  useQuery(GET_USER);
-    if(!data.loading) {
-        return data.data.viewer
+    const { data, loading } =  useQuery(GET_USER);
+    if(!loading) {
+        return data?.viewer
     }
 }
