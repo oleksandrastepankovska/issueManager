@@ -1,17 +1,8 @@
-import React, { useState, useEffect, ReactEventHandler } from "react";
-import IssueItem from './IssueItem'
+import { useState, useEffect } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
 import { IssuesWrapper, IssueForm, IssueTextInput, IssueSubmitInput } from './styles'
-import Loading from '../common/Loader'
-
-interface IRenderedItem {
-    node: {
-        id: string;
-        url: string;
-        state: string;
-        title: string;
-    }
-}
+import IssuesList from "./IssueList";
+import { IRenderedItem } from "./IssueList";
 
 const GET_ISSUES = gql`
     query getIssues($owner: String!, $name: String!){ 
@@ -23,6 +14,12 @@ const GET_ISSUES = gql`
                 state
                 title
                 url
+                author{
+                    login
+                }
+                repository{
+                    name
+                }
                 }
             }
             }
@@ -33,8 +30,8 @@ const GET_ISSUES = gql`
 const Issues = () => {
     const [owner, setOwner] = useState('');
     const [name, setName ] = useState('');
-    const [ issues, setIssues ] = useState<IRenderedItem[]>([]);  
-    const [loadIssues, { data }] = useLazyQuery(GET_ISSUES, {
+    const [ issues, setIssues ] = useState<IRenderedItem[]>();  
+    const [loadIssues, { data, loading, called }] = useLazyQuery(GET_ISSUES, {
         variables: { owner, name }
     })
 
@@ -53,19 +50,12 @@ const Issues = () => {
         <IssuesWrapper>
             <IssueForm onSubmit={handleSubmit}>
                 <label>
-                    Search for Issues:
                     <IssueTextInput type="text" placeholder="Owner Name" value={owner} name="owner" onChange={e => setOwner(e.target.value)}/>
                     <IssueTextInput type="text" placeholder="Repository Name" value={name} name="name" onChange={e => setName(e.target.value)} />
                 </label>
                 <IssueSubmitInput type="submit" value="Issues" />
             </IssueForm>
-            {issues ? issues.map((item: IRenderedItem) => 
-                        <IssueItem 
-                            key={item.node.id}
-                            url={item.node.url} 
-                            state={item.node.state} 
-                            title={item.node.title}
-                        />) : <Loading />}
+            <IssuesList issues={issues} loading={loading} called={called}/>
         </IssuesWrapper>
     )
 }
